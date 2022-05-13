@@ -16,7 +16,7 @@ startButton.addEventListener("click", function(){
     startGame();
 });
 
-var timeLeft = 10;
+var timeLeft = 60;
 function setTimer() {
     timeLeft--;
     timer.textContent=timeLeft;
