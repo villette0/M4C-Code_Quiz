@@ -30,3 +30,32 @@ function startGame() {
     quizTime = setInterval(setTimer, 1000);
 }
 
+var questions = [
+    { 
+        text: "2+2",
+        options: ["3", "4", "5"],
+        correct: "4",
+    },
+    {
+        text: "3+1",
+        options: ["3", "4", "5"],
+        correct: "4",
+    },
+    {
+        text: "2+1",
+        options: ["3", "4", "5"],
+        correct: "3",
+    },
+    {
+        text: "2+5",
+        options: ["6", "7", "5"],
+        correct: "7",
+    },
+    {
+        text: "1+1",
+        options: ["3", "2", "5"],
+        correct: "2",
+    },
+]
+
+// for loop for next button to cycle through questions 
