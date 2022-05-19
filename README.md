@@ -35,7 +35,7 @@ The HTML document includes:
 * a proper title and SEO metadata
 * proper HTML semantic labelling
 * alt attributes of images for accessibility
-* questions, countdown timer, next button
+* countdown timer, next button, question container
 * comments
 
 The CSS document includes:

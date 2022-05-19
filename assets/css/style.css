@@ -1,5 +1,87 @@
-/* Universal selectors first */
+/* this will make the navigation bar links stylized */
+nav li {
+    /* display inline means the elements inside li will be in a line instead of vertical aka horizontal */
+    display: inline;
+    font-size: 20px;
+  }
 
-h1 {
-    color:blue;
+/* first li in  nav ul. this one is a link.*/
+.view-scores {
+    color: rgb(210, 118, 223); 
+    text-decoration: none;
 }
+
+/* second li in the nav ul. this one is text that changes. float it right to place on opposite side */
+.timer {
+    float: right; 
+}
+
+
+#start-container {
+    /* centers the header, paragraph, and button inside this container*/
+    text-align: center;
+}
+
+#start-header {
+    font-family: 'Press Start 2P', serif;
+    font-size: 30px;
+    margin-top: 170px;
+}
+
+#start-paragraph {
+    font-size: 20px;
+    margin: 40px;
+    padding-left: 150px;
+    padding-right: 150px;
+    line-height: 150%;
+}
+
+#start-btn {
+    background-color: rgb(210, 118, 223);
+    border-radius: 10px;
+    border-width: 0px;
+    color: white;
+    padding: 13px 26px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    filter: drop-shadow(5px 5px 2px #4444dd);
+}
+
+
+.question-container {
+    padding-left: 220px;
+    padding-right: 70px;
+}
+
+.question-text {
+    font-size: 45px;
+    margin-top: 160px;
+    margin-bottom: 20px;
+}
+
+/* Makes the buttons in each li into */
+div li {
+    display: inline;
+}
+
+.multiple-choice-btn {
+    background-color:  #4d10b0;
+    border-radius: 10px;
+    border-width: 0px;
+    color: white;
+    margin: 5px;
+    padding: 13px 26px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    width: 300px;
+}
+
+.multiple-choice-btn:focus {
+    background: rgb(210, 118, 223);
+}
+
+

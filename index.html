@@ -1,33 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Quiz</title>
-    <link rel="stylesheet" href="./assets/css/reset.css" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-  </head>
 
-  <body>
-    <div class="start-container">
-      <h1 class="header">Quiz Game</h1>
-      <button class="start-btn">Start</button>
-    </div>
-  
-    <div class="question-container">
-      <h1 class="question-text">1+1</h1>
-      <p class="timer">60</p>
-      <div class="answer-list">
-      </div>
-      <button class="next-button">
-        Next
-      </button>
-    </div>
-    <div class="end-container">
-      
-    </div>
-  </body>
-  
-<script src="./assets/js/script.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Code Quiz</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <!-- Link to reset first so computer reads that first, then style css -->
+  <link rel="stylesheet" href="./assets/css/reset.css" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><a href="default.asp" class="view-scores">View High Scores</a></li>
+          <!-- timer -->
+      <li class="timer">Timer: 0</li>
+    </ul>
+  </nav>
+
+  <!-- Start container. Default will be shown, will hide on start button click to show question container -->
+  <div id="start-container">
+    <h1 id="start-header">Coding Quiz Challenge</h1>
+    <p id="start-paragraph">Try to answer the following code-related questions within the time limit. Keep in mind that
+      incorrect answers will penalize your score/time by ten seconds!</p>
+    <button id="start-btn">Start Quiz</button>
+  </div>
+
+  <!--Question container. Default will be hidden. Then will show after start button click.-->
+  <div class="question-container">
+    <!-- questions that will change -->
+    <h1 class="question-text">Which is a container that stores data values?</h1>
+
+    <ul class="answer-list">
+      <!-- multiple choices -->
+      <li>
+        <button class="multiple-choice-btn selection-1">
+          1. loop
+        </button>
+      </li>
+
+      <li>
+        <button class="multiple-choice-btn selection-2">
+          2. variable
+        </button>
+      </li>
+
+      <li>
+        <button class="multiple-choice-btn selection-3">
+          3. html
+        </button>
+      </li>
+
+      <li>
+        <button class="multiple-choice-btn selection-4">
+          4. button
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Last page -->
+  <div class="end-container">
+
+  </div>
+  <!-- link to JavaScript needs to go at bottom of body -->
+  <script src="./assets/js/script.js"></script>
+</body>
+
 </html>
