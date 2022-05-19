@@ -1,7 +1,7 @@
 // Universal variables first
-var startContainer = document.querySelector("#start-container");
+var startContainer = document.querySelector(".start-container");
 var timer = document.querySelector(".timer");
-var startButton = document.querySelector("#start-btn");
+var startButton = document.querySelector(".start-btn");
 var questionContainer= document.querySelector(".question-container");
 var questionText = document.querySelector(".question-text");
 var answerList = document.querySelector(".answer-list");
@@ -16,7 +16,7 @@ startButton.addEventListener("click", function(){
     startGame();
 });
 
-var timeLeft = 60;
+var timeLeft = 75;
 function setTimer() {
     timeLeft--;
     timer.textContent=("Timer: " + timeLeft);
@@ -33,7 +33,7 @@ function startGame() {
 var questions = [
     { 
         text: "What type of variable can hold more than one value?",
-        options: ["array", "", "5"],
+        options: ["array", "JavaScript", "event bubbling"],
         correct: "array",
     },
     {
@@ -59,3 +59,19 @@ var questions = [
 ]
 
 // for loop for next button to cycle through questions 
+var questionIndex = 0;
+function displayQuestion() {
+    // questions comes from line 33
+    for(var i=0; i<questions.length; i++) {
+        // console.log(questions[i].text)
+        var question = questions[i].text;
+        var answersList = questions[i].options;
+        // var from up top
+        questionText.textContent = question;
+    }
+    answersList.forEach(function(answer) {
+        console.log(answer)
+    });
+}
+
+displayQuestion();

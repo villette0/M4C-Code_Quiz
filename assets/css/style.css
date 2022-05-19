@@ -1,4 +1,6 @@
 
+/* Add variables for repeated color */
+
 /* Moves navigation links a little down and inside so they aren't right at the edge of the page */
 nav ul {
     margin: 15px;
@@ -23,18 +25,19 @@ nav li {
 }
 
 
-#start-container {
+.start-container {
     /* centers the header, paragraph, and button inside this container*/
     text-align: center;
 }
 
-#start-header {
+.start-header {
     font-family: 'Press Start 2P', serif;
     font-size: 30px;
     margin-top: 170px;
+    filter: drop-shadow(2px 2px 2px #4444dd);
 }
 
-#start-paragraph {
+.start-paragraph {
     font-size: 20px;
     margin: 40px;
     padding-left: 150px;
@@ -42,7 +45,7 @@ nav li {
     line-height: 150%;
 }
 
-#start-btn {
+.start-btn {
     background-color: rgb(210, 118, 223);
     border-radius: 10px;
     border-width: 0px;
