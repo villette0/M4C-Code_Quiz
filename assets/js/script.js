@@ -60,18 +60,51 @@ var questions = [
 
 // for loop for next button to cycle through questions 
 var questionIndex = 0;
-function displayQuestion() {
-    // questions comes from line 33
+function displayQuestion(index) {
+    answerList.innerText="";
+    // var questions comes from line 33 that is used in the .length
     for(var i=0; i<questions.length; i++) {
         // console.log(questions[i].text)
-        var question = questions[i].text;
-        var answersList = questions[i].options;
+        var question = questions[index].text;
+        var answersList = questions[index].options;
         // var from up top
         questionText.textContent = question;
     }
+    // we made up the word answer
     answersList.forEach(function(answer) {
-        console.log(answer)
+        // console.log(answer)
+        var answerButton = document.createElement("button");
+        answerButton.textContent = answer;
+        answerButton.classList.add("multiple-choice-btn");
+        answerList.appendChild(answerButton);
+        answerButton.addEventListener("click", function(){
+            checkAnswer(answerButton.textContent);
+        });
     });
 }
 
-displayQuestion();
+// we made up the word answer
+function checkAnswer(answer) {
+    var display = document.createElement("h2");
+    if(questions[questionIndex].correct===answer) {
+        console.log(true);
+        display.textContent = "Correct!";
+    } else {
+        console.log(false);
+        display.textContent = "Incorrect!"
+    }
+    questionContainer.appendChild(display);
+    questionIndex++
+    displayNext(questionIndex, display);
+}
+
+function displayNext (question, status) {
+    displayQuestion (question);
+    status.textContent="";
+}
+
+displayQuestion(questionIndex);
+
+// add a score after they get something right or wrong
+// minus time  10 if they mistake it
+// add 5 sec if they get correct
