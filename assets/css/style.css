@@ -1,6 +1,12 @@
+
+/* Moves navigation links a little down and inside so they aren't right at the edge of the page */
+nav ul {
+    margin: 15px;
+}
+
 /* this will make the navigation bar links stylized */
 nav li {
-    /* display inline means the elements inside li will be in a line instead of vertical aka horizontal */
+    /* display inline means the li elements will be side by side in a line instead of vertical. They will be horizontal. */
     display: inline;
     font-size: 20px;
   }
