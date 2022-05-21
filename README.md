@@ -1,10 +1,10 @@
 # Code Quiz
 
 ## Website Description
-The website is of a coding quiz which gives multiple choice options as answers. It is initiated by a start button and a timed assessmenet.
+The website is of a coding quiz which gives multiple choice options as answers. It is initiated by a start button and a timed assessmenet of 35 seconds. If the user misses an an answer 10 seconds are subtracted from the time and if they get one correct answer then 10 seconds are added. They are shown whether they got an answer correct or not before moving to the next question. If they run out of time, they will see a "Game Over" message. Upon it being "Game Over," or completing the quiz, they are able to either restart the quiz to try again or view the high scores. 
 
 ## Challenge Description
-The challenge required dynamically updated HTML via JavaScript and CSS styling. There was no starter code provided. The questions are not on the HTML but rather populated to be shown on the screen via a for-loop array. Pressing the start button initiates the timer countdown appearing on the screen for the user to see while each question appears and they make a multiple choice selection. 
+The challenge required dynamically updated HTML via JavaScript and CSS styling. There was no starter code provided. Various divs are shown and hidden dependent on which section of the quiz the user is on and which button has been pressed. The questions and answers are not on the HTML but rather populated to be shown on the screen via a for-loop array. An event listener on the start button initiates the timer countdown function on the screen for the user to see while each question appears via appending the question container div and they make a multiple choice selection from li items in an unordered list. Event listener functions are also on the high scores and reset buttons. The timer stops and returns to zero if the user runs out of time or if the quiz is not currently running. Otherwise it uses an interval of one second to subtract down from 35.  The quiz will end with the result div; this is either a "Game Over" screen if they run out of time or results of how many questions they got correct. The restart quiz function resets most global variables for time, score, and questions index. The high scores also used a for-loop array to check which is the highest and order them as such. 
 
 ## User Story
 
@@ -42,12 +42,15 @@ The CSS document includes:
 * an organized structure that matches the HTML order
 * variables for repetitive values
 * visually appealing styling
+* element and class selectors
 * comments
 
 The JavaScript document includes:
 * variables, query selectors, objects, event listeners, and functions
-* start button event listener on click
+* start/restart/multiple choice/high scores button event listener on click
 * for-loop over questions array 
+* for-loop over high scores
+* intervals, countdown timers, functions with parameters, functions with appended lists and classes
 
 ## Languages
 - HTML

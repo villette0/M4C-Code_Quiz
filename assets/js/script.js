@@ -9,6 +9,8 @@ var multipleChoiceButton = document.querySelector(".multiple-choice-button");
 var endContainer = document.querySelector(".end-container");
 var endResult = document.querySelector(".end-result");
 var restartButton = document.querySelector(".restart-btn");
+var highScoresButton = document.querySelector(".highscores-btn");
+var viewScoresLink = document.querySelector(".view-scores");
 
 
 // Initially hide the other two containers. aka "pseudo pages"
@@ -185,4 +187,15 @@ restartButton.addEventListener("click", function () {
     // display the questions and start the timer
     displayNextQuestion(questionIndex, displayResult);
     startTimer(); 
+});
+
+highScoresButton.addEventListener("click", function () {
+
+
+});
+
+
+viewScoresLink.addEventListener("click", function () {
+
+
 });

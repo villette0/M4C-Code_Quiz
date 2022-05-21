@@ -1,5 +1,10 @@
-
 /* Add variables for repeated color */
+:root {
+    --pink: rgb(210, 118, 223);
+    ;
+    --darkPurple: #4444dd;
+}
+
 
 /* Moves navigation links a little down and inside so they aren't right at the edge of the page */
 nav ul {
@@ -11,17 +16,18 @@ nav li {
     /* display inline means the li elements will be side by side in a line instead of vertical. They will be horizontal. */
     display: inline;
     font-size: 20px;
-  }
+}
 
 /* first li in  nav ul. this one is a link.*/
 .view-scores {
-    color: rgb(210, 118, 223); 
+    color: var(--pink);
+    ;
     text-decoration: none;
 }
 
 /* second li in the nav ul. this one is text that changes. float it right to place on opposite side */
 .timer {
-    float: right; 
+    float: right;
 }
 
 
@@ -34,7 +40,7 @@ nav li {
     font-family: 'Press Start 2P', serif;
     font-size: 30px;
     margin-top: 170px;
-    filter: drop-shadow(2px 2px 2px #4444dd);
+    filter: drop-shadow(2px 2px 2px var(--darkPurple));
 }
 
 .start-paragraph {
@@ -46,7 +52,7 @@ nav li {
 }
 
 .start-btn {
-    background-color: rgb(210, 118, 223);
+    background-color: var(--pink);
     border-radius: 10px;
     border-width: 0px;
     color: white;
@@ -55,7 +61,7 @@ nav li {
     text-decoration: none;
     display: inline-block;
     font-size: 18px;
-    filter: drop-shadow(5px 5px 2px #4444dd);
+    filter: drop-shadow(5px 5px 2px var(--darkPurple));
 }
 
 
@@ -76,7 +82,8 @@ div li {
 }
 
 .multiple-choice-btn {
-    background-color:  #4d10b0;
+    background-color: var(--darkPurple);
+    ;
     border-radius: 10px;
     border-width: 0px;
     color: white;
@@ -90,7 +97,7 @@ div li {
 }
 
 .multiple-choice-btn:focus {
-    background: rgb(210, 118, 223);
+    background: var(--pink);
 }
 
 /* Initially there is no text here but the text-content populates in JavaScript */
@@ -103,7 +110,7 @@ div li {
 
 .end-container {
     text-align: center;
-    margin: 225px; 
+    margin: 225px;
     line-height: 250%;
 }
 
@@ -111,11 +118,11 @@ div li {
 .end-result {
     font-family: 'Press Start 2P', serif;
     font-size: 20px;
-    filter: drop-shadow(2px 2px 2px #4444dd);
+    filter: drop-shadow(2px 2px 2px var(--darkPurple));
 }
 
 .restart-btn {
-    background-color: rgb(210, 118, 223);
+    background-color: var(--pink);
     border-radius: 10px;
     border-width: 0px;
     color: white;
@@ -124,12 +131,12 @@ div li {
     text-decoration: none;
     display: inline-block;
     font-size: 18px;
-    filter: drop-shadow(5px 5px 2px #4444dd);
+    filter: drop-shadow(5px 5px 2px var(--darkPurple));
     margin: 30px;
 }
 
 .highscores-btn {
-    background-color: rgb(86, 42, 161);
+    background-color: var(--darkPurple);
     border-radius: 10px;
     border-width: 0px;
     color: white;
@@ -141,4 +148,3 @@ div li {
     filter: drop-shadow(5px 5px 2px #4444dd);
     margin: 30px;
 }
-
