@@ -121,7 +121,7 @@ div li {
     filter: drop-shadow(2px 2px 2px var(--darkPurple));
 }
 
-.restart-btn {
+.restart-btn-styling {
     background-color: var(--pink);
     border-radius: 10px;
     border-width: 0px;
@@ -135,6 +135,8 @@ div li {
     margin: 30px;
 }
 
+
+
 .highscores-btn {
     background-color: var(--darkPurple);
     border-radius: 10px;
@@ -147,4 +149,17 @@ div li {
     font-size: 18px;
     filter: drop-shadow(5px 5px 2px #4444dd);
     margin: 30px;
+}
+
+.highscores-container {
+    text-align: center;
+}
+
+.highscores-header {
+    font-size: 40px;
+    margin-top: 160px;
+    margin-bottom: 20px;
+    text-align: center;
+    text-decoration-line: underline;
+    text-decoration-color: var(--pink);
 }

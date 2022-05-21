@@ -8,16 +8,18 @@ var answerUlList = document.querySelector(".answer-ullist");
 var multipleChoiceButton = document.querySelector(".multiple-choice-button");
 var endContainer = document.querySelector(".end-container");
 var endResult = document.querySelector(".end-result");
-var restartButton = document.querySelector(".restart-btn");
+var endPageRestartButton = document.querySelector(".endpage-restart-btn");
 var highScoresButton = document.querySelector(".highscores-btn");
-var viewScoresLink = document.querySelector(".view-scores-link");
 var highScoresContainer = document.querySelector(".highscores-container");
+var viewHighScores = document.querySelector(".view-scores-link");
+var highScoresPageRestartButton = document.querySelector(".highscores-restart-page-btn");
 
 
 // Initially hide the other two containers. aka "pseudo pages"
 questionContainer.style.display = "none";
 endContainer.style.display = "none";
 highScoresContainer.style.display = "none";
+startContainer.style.display = "block";
 
 // Upon hitting start button, we will display the question container and hide the original start container
 // And then call the function start game
@@ -170,7 +172,8 @@ function endPage() {
     highScoresContainer.style.display = "none";
     endContainer.style.display = "block";
 
-    if (score > 2) {
+    // I should add a percent of the length here instead of 2.
+    if (score > 2) { 
         endResult.textContent = "Your score is " + score + " correct out of " + questionsList.length + "! You passed!";
     }
     else {
@@ -186,28 +189,47 @@ function gameOver() {
     endResult.textContent = "GAME OVER! You ran out of time."
 }
 
-restartButton.addEventListener("click", function () {
-    // hide the start and end container and display the questions again
-    startContainer.style.display = "none";
-    endContainer.style.display = "none";
-    highScoresContainer.style.display = "none";
-    questionContainer.style.display = "block";
-    // reset all our global variables
-    questionIndex = 0;
-    timeLeft=35;
-    score = 0;
-    // display the questions and start the timer
-    displayNextQuestion(questionIndex, displayResult);
-    startTimer(); 
-});
+endPageRestartButton.addEventListener("click", restartNow());
+highScoresPageRestartButton.addEventListener("click", restartNow());
 
-/*
-highScoresButton.addEventListener("click", displayHighScores());
-viewScoresLink.addEventListener("click", displayHighScores ());
-
-function displayHighScores() {
-
+function restartNow() {
+    return function () {
+        startContainer.style.display = "none";
+        endContainer.style.display = "none";
+        highScoresContainer.style.display = "none";
+        questionContainer.style.display = "block";
+        // reset all our global variables
+        questionIndex = 0;
+        timeLeft = 35;
+        score = 0;
+        // display the questions and start the timer
+        displayNextQuestion(questionIndex, displayResult);
+        startTimer();
+    };
 }
 
 
-//line 153 confuses me*/
+highScoresButton.addEventListener("click", displayHighScores());
+viewHighScores.addEventListener("click", displayHighScores());
+function displayHighScores() {
+    return function () {
+        startContainer.style.display = "none";
+        endContainer.style.display = "none";
+        questionContainer.style.display = "none";
+        highScoresContainer.style.display = "block";
+    };
+}
+
+
+function appendHighScores () {
+// add lis of ordered scores to ul, highest to lowest
+}
+
+function calculateHighScores () {
+// for loop all console.log scores and order highest to lowest
+}
+
+
+// Improvements to consider changing:
+//line 206. end of restart function parameters are confusing
+//is it possible to create a percent out of the questionsList.length for the enpage function to calculate less than 50% wrong fail, greater pass?
