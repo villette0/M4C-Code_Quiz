@@ -18,7 +18,7 @@
 <body class="body">
   <nav>
     <ul>
-      <li><a href="default.asp" class="view-scores">View High Scores</a></li>
+      <li><a href="default.asp" class="view-scores-link">View High Scores</a></li>
           <!-- timer -->
       <li class="timer">Timer: 0</li>
     </ul>
@@ -36,22 +36,31 @@
   <div class="question-container">
     <!-- questions that will change -->
     <h1 class="question-text"></h1>
-
-    <ul class="answer-list">
-<!-- li's will populate here -->
+    <ul class="answer-ullist">
+    <!-- li's will populate here via JavaScript appending with an array -->
     </ul>
   </div>
 
+  <!-- If correct or incorrect will show below answer selection -->
   <div>
     <h2 class = "result"></h2>
   </div>
 
-  <!-- Last page -->
+  <!-- Last page, changes from game over if run out of time or results -->
   <div class="end-container">
     <h2 class="end-result"></h2>
     <button class="restart-btn">Restart Quiz</button>
     <button class="highscores-btn">View Highscores</button>
   </div>
+
+<!-- if highscores is clicked in button or navigation link this will display and hide the other divs -->
+<div class="highscores-container">
+  <h1 class="highscore-header">High Scores</h1>
+  <ul class="highscores-ullist">
+  <!-- li's will populate here via JavaScript appending with an array -->
+  </ul>
+</div>
+
   <!-- link to JavaScript needs to go at bottom of body -->
   <script src="./assets/js/script.js"></script>
 </body>

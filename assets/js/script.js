@@ -4,18 +4,20 @@ var timer = document.querySelector(".timer");
 var startButton = document.querySelector(".start-btn");
 var questionContainer = document.querySelector(".question-container");
 var questionText = document.querySelector(".question-text");
-var answerList = document.querySelector(".answer-list");
+var answerUlList = document.querySelector(".answer-ullist");
 var multipleChoiceButton = document.querySelector(".multiple-choice-button");
 var endContainer = document.querySelector(".end-container");
 var endResult = document.querySelector(".end-result");
 var restartButton = document.querySelector(".restart-btn");
 var highScoresButton = document.querySelector(".highscores-btn");
-var viewScoresLink = document.querySelector(".view-scores");
+var viewScoresLink = document.querySelector(".view-scores-link");
+var highScoresContainer = document.querySelector(".highscores-container");
 
 
 // Initially hide the other two containers. aka "pseudo pages"
 questionContainer.style.display = "none";
 endContainer.style.display = "none";
+highScoresContainer.style.display = "none";
 
 // Upon hitting start button, we will display the question container and hide the original start container
 // And then call the function start game
@@ -80,7 +82,7 @@ var questionsList = [
 var questionIndex = 0;
 function displayQuestion(indexplaceholder) {
     // var answerList is the ul class of the multiple choice buttons. set initially to nothing. we will fill this text with the array information
-    answerList.innerText = "";
+    answerUlList.innerText = "";
     // var questions comes from the universally scoped variable above which holds the array, and that is used in the .length
     for (var i = 0; i < questionsList.length; i++) {
         // console.log(questions[i].text) shows you the text of that question for say interval 1. console.log(questions[2].text) would show me question 3's text. Just the value of text, not options etc. Or I could do console.log(questions[i].options)
@@ -94,7 +96,6 @@ function displayQuestion(indexplaceholder) {
 
 
 //multipleChoiceArray is the collection of multiple choice possibilities 
-// we made up the word answerPlaceholder to use 
 var score = 0;
 var displayResult = document.querySelector(".result");
 function createAnswers(multipleChoiceArray) {
@@ -104,13 +105,16 @@ function createAnswers(multipleChoiceArray) {
     }
 }
 
+// we made up the word answerPlaceholder to use 
 function addingAnswerButtons(answerPlaceholder) {
     // console.log(answerPlaceholder)
+    var answerLi = document.createElement("li");
+    answerUlList.appendChild(answerLi);
     var answerButton = document.createElement("button");
     // we place answerPlaceholder after, because currently the textContent is nothing. if we put answerPlaceholder first, it would be said to nothing.
     answerButton.textContent = answerPlaceholder;
     answerButton.classList.add("multiple-choice-btn");
-    answerList.appendChild(answerButton);
+    answerLi.appendChild(answerButton);
     answerButton.addEventListener("click", function () {  
         checkAnswer(answerButton.textContent);
         // wait a sec so user can see checkAnswer result
@@ -124,11 +128,13 @@ function addingAnswerButtons(answerPlaceholder) {
 
 
 function checkAnswer(answerplaceholder) {
+    // if the question's correct array answer is the same as the question selected by the used
     if (questionsList[questionIndex].correct === answerplaceholder) {
         console.log(true);
         displayResult.textContent = "Correct! You gained 10 seconds";
         score++;
         timeLeft += 10;
+    // otherwise, if they don't match
     } else {
         console.log(false);
         displayResult.textContent = "Incorrect! You lost 10 seconds!"
@@ -137,11 +143,14 @@ function checkAnswer(answerplaceholder) {
 }
 
 function moveToNextQuestion() {
+    // move up 1 index of question
     questionIndex++;
     console.log(questionIndex);
     console.log(questionsList.length);
+    // if say theres 5 questions we've reached and that matches the length of 5 then display end page which shows results
     if (questionIndex === questionsList.length) {
         endPage();
+    // otherwise display the next question and whether they got it correct or incorrect which displays after checkanswer
     } else {
         displayNextQuestion(questionIndex, displayResult);
     }
@@ -158,6 +167,7 @@ function endPage() {
     timeLeft = 0;
     questionContainer.style.display = "none";
     displayResult.style.display = "none";
+    highScoresContainer.style.display = "none";
     endContainer.style.display = "block";
 
     if (score > 2) {
@@ -171,6 +181,7 @@ function endPage() {
 function gameOver() {
     questionContainer.style.display = "none";
     displayResult.style.display = "none";
+    highScoresContainer.style.display = "none";
     endContainer.style.display = "block";
     endResult.textContent = "GAME OVER! You ran out of time."
 }
@@ -179,6 +190,7 @@ restartButton.addEventListener("click", function () {
     // hide the start and end container and display the questions again
     startContainer.style.display = "none";
     endContainer.style.display = "none";
+    highScoresContainer.style.display = "none";
     questionContainer.style.display = "block";
     // reset all our global variables
     questionIndex = 0;
@@ -189,13 +201,13 @@ restartButton.addEventListener("click", function () {
     startTimer(); 
 });
 
-highScoresButton.addEventListener("click", function () {
+/*
+highScoresButton.addEventListener("click", displayHighScores());
+viewScoresLink.addEventListener("click", displayHighScores ());
+
+function displayHighScores() {
+
+}
 
 
-});
-
-
-viewScoresLink.addEventListener("click", function () {
-
-
-});
+//line 153 confuses me*/

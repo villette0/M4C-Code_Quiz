@@ -19,7 +19,7 @@ nav li {
 }
 
 /* first li in  nav ul. this one is a link.*/
-.view-scores {
+.view-scores-link {
     color: var(--pink);
     ;
     text-decoration: none;
