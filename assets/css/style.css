@@ -93,4 +93,21 @@ div li {
     background: rgb(210, 118, 223);
 }
 
+.result {
+    padding-left: 227px;
+    margin-top: 5px;
+    font-size: 20px;
+    color: gray
+}
 
+.end-container {
+    text-align: center;
+    margin: 225px; 
+    line-height: 250%;
+}
+
+.end-result {
+    font-family: 'Press Start 2P', serif;
+    font-size: 20px;
+    filter: drop-shadow(2px 2px 2px #4444dd);
+}
