@@ -2,22 +2,25 @@
 var startContainer = document.querySelector(".start-container");
 var timer = document.querySelector(".timer");
 var startButton = document.querySelector(".start-btn");
-var questionContainer= document.querySelector(".question-container");
+var questionContainer = document.querySelector(".question-container");
 var questionText = document.querySelector(".question-text");
 var answerList = document.querySelector(".answer-list");
 var multipleChoiceButton = document.querySelector(".multiple-choice-button");
 var endContainer = document.querySelector(".end-container");
+var endResult = document.querySelector(".end-result");
+var restartButton = document.querySelector(".restart-btn");
+
 
 // Initially hide the other two containers. aka "pseudo pages"
-questionContainer.style.display="none";
-endContainer.style.display="none";
+questionContainer.style.display = "none";
+endContainer.style.display = "none";
 
 // Upon hitting start button, we will display the question container and hide the original start container
 // And then call the function start game
-startButton.addEventListener("click", function() {
+startButton.addEventListener("click", function () {
     displayNextQuestion(questionIndex, displayResult);
-    questionContainer.style.display="block";
-    startContainer.style.display="none";
+    questionContainer.style.display = "block";
+    startContainer.style.display = "none";
     startTimer(); //this function below starts the timer
 });
 
@@ -31,20 +34,20 @@ function startTimer() {
 }
 
 // How the timer functions
-var timeLeft = 5;
+var timeLeft = 35;
 function howTimerWorks() {
     timeLeft--; //subtracts time
-    timer.textContent=("Timer: " + timeLeft); // the text of the timer class will change to also counting down
+    timer.textContent = ("Timer: " + timeLeft); // the text of the timer class will change to also counting down
     if (timeLeft <= 0) {
         // clearInterval so it doesn't go into negatives. aka stop the interval in the function below from continuing to run after 0.
         clearInterval(quiztime);
-        timer.textContent=("Timer: 0, You ran out of time!");
+        timer.textContent = "Timer: 0";
     }
 }
 
 
 var questionsList = [
-    { 
+    {
         text: "What type of variable can hold more than one value?",
         multipleChoices: ["array", "JavaScript", "event bubbling", "query selector"],
         correct: "array",
@@ -75,9 +78,9 @@ var questionsList = [
 var questionIndex = 0;
 function displayQuestion(indexplaceholder) {
     // var answerList is the ul class of the multiple choice buttons. set initially to nothing. we will fill this text with the array information
-    answerList.innerText="";
+    answerList.innerText = "";
     // var questions comes from the universally scoped variable above which holds the array, and that is used in the .length
-    for(var i=0; i < questionsList.length; i++) {
+    for (var i = 0; i < questionsList.length; i++) {
         // console.log(questions[i].text) shows you the text of that question for say interval 1. console.log(questions[2].text) would show me question 3's text. Just the value of text, not options etc. Or I could do console.log(questions[i].options)
         var aSingleQuestion = questionsList[indexplaceholder].text;
         var multipleChoiceArray = questionsList[indexplaceholder].multipleChoices;
@@ -95,37 +98,39 @@ var displayResult = document.querySelector(".result");
 function createAnswers(multipleChoiceArray) {
     for (var i = 0; i < multipleChoiceArray.length; i++) {
         // for each item in the multiple choice array we want to apply the function addingAnswerButton
-        addingAnswerButtons(multipleChoiceArray[i]);     
+        addingAnswerButtons(multipleChoiceArray[i]);
     }
 }
 
-function addingAnswerButtons(answerPlaceholder)  {
-        // console.log(answerPlaceholder)
-        var answerButton = document.createElement("button");
-        // we place answerPlaceholder after, because currently the textContent is nothing. if we put answerPlaceholder first, it would be said to nothing.
-        answerButton.textContent = answerPlaceholder;
-        answerButton.classList.add("multiple-choice-btn");
-        answerList.appendChild(answerButton);
-        answerButton.addEventListener("click", function () {
-            checkAnswer(answerButton.textContent);
-            // wait a sec so user can see checkAnswer result
-            setTimeout(function () {
-                moveToNextQuestion();
-            }, 1000);
-        });
-    };
+function addingAnswerButtons(answerPlaceholder) {
+    // console.log(answerPlaceholder)
+    var answerButton = document.createElement("button");
+    // we place answerPlaceholder after, because currently the textContent is nothing. if we put answerPlaceholder first, it would be said to nothing.
+    answerButton.textContent = answerPlaceholder;
+    answerButton.classList.add("multiple-choice-btn");
+    answerList.appendChild(answerButton);
+    answerButton.addEventListener("click", function () {  
+        checkAnswer(answerButton.textContent);
+        // wait a sec so user can see checkAnswer result
+        setTimeout(function () {
+            if (timeLeft >0) {
+            moveToNextQuestion(); }
+            else {gameOver();}
+        }, 1000);
+    });
+};
 
 
 function checkAnswer(answerplaceholder) {
-    if(questionsList[questionIndex].correct===answerplaceholder) {
+    if (questionsList[questionIndex].correct === answerplaceholder) {
         console.log(true);
-        displayResult.textContent = "Correct! You gained 5 seconds";
+        displayResult.textContent = "Correct! You gained 10 seconds";
         score++;
-        timeLeft+=5;
+        timeLeft += 10;
     } else {
         console.log(false);
-        displayResult.textContent = "Incorrect! You lost 5 seconds!"
-        timeLeft-=5;
+        displayResult.textContent = "Incorrect! You lost 10 seconds!"
+        timeLeft -= 10;
     }
 }
 
@@ -141,24 +146,43 @@ function moveToNextQuestion() {
 
 }
 
-function displayNextQuestion (questionplaceholder, statusplaceholder) {
+function displayNextQuestion(questionplaceholder, statusplaceholder) {
     // When we display the next question, make the status nothing
-    displayQuestion (questionplaceholder);
-    statusplaceholder.textContent="";
+    displayQuestion(questionplaceholder);
+    statusplaceholder.textContent = "";
 }
 
 function endPage() {
-    questionContainer.style.display="none";
-    displayResult.style.display="none";
-    endContainer.style.display="block";
-    var endResult = document.createElement("h2");
-    endResult.classList.add("end-result");
-    endContainer.appendChild(endResult);
+    timeLeft = 0;
+    questionContainer.style.display = "none";
+    displayResult.style.display = "none";
+    endContainer.style.display = "block";
+
     if (score > 2) {
-        endResult.textContent = "Your score is " + score + " correct out of " + questionsList.length + "! You passed!"
+        endResult.textContent = "Your score is " + score + " correct out of " + questionsList.length + "! You passed!";
     }
-    else  {
-        endResult.textContent = "Your score is only " + score + " correct out of " + questionsList.length + "! You failed."
+    else {
+        endResult.textContent = "Your score is only " + score + " correct out of " + questionsList.length + "! You failed.";
     }
 }
 
+function gameOver() {
+    questionContainer.style.display = "none";
+    displayResult.style.display = "none";
+    endContainer.style.display = "block";
+    endResult.textContent = "GAME OVER! You ran out of time."
+}
+
+restartButton.addEventListener("click", function () {
+    // hide the start and end container and display the questions again
+    startContainer.style.display = "none";
+    endContainer.style.display = "none";
+    questionContainer.style.display = "block";
+    // reset all our global variables
+    questionIndex = 0;
+    timeLeft=35;
+    score = 0;
+    // display the questions and start the timer
+    displayNextQuestion(questionIndex, displayResult);
+    startTimer(); 
+});

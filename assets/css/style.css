@@ -93,6 +93,7 @@ div li {
     background: rgb(210, 118, 223);
 }
 
+/* Initially there is no text here but the text-content populates in JavaScript */
 .result {
     padding-left: 227px;
     margin-top: 5px;
@@ -106,8 +107,38 @@ div li {
     line-height: 250%;
 }
 
+/* this class is created in JavaScript for the h2 inside the end-container div */
 .end-result {
     font-family: 'Press Start 2P', serif;
     font-size: 20px;
     filter: drop-shadow(2px 2px 2px #4444dd);
 }
+
+.restart-btn {
+    background-color: rgb(210, 118, 223);
+    border-radius: 10px;
+    border-width: 0px;
+    color: white;
+    padding: 13px 26px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    filter: drop-shadow(5px 5px 2px #4444dd);
+    margin: 30px;
+}
+
+.highscores-btn {
+    background-color: rgb(86, 42, 161);
+    border-radius: 10px;
+    border-width: 0px;
+    color: white;
+    padding: 13px 26px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    filter: drop-shadow(5px 5px 2px #4444dd);
+    margin: 30px;
+}
+
