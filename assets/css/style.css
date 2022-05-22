@@ -176,5 +176,22 @@ div li {
     font-size: 18px;
     filter: drop-shadow(5px 5px 2px var(--darkPurple));
     margin-top: 150px;
+    margin-right: 13px;
+    cursor: pointer;
+}
+
+.clear-highscores-btn {
+    background-color: rgb(67, 44, 156);
+    border-radius: 10px;
+    border-width: 0px;
+    color: white;
+    padding: 13px 26px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    filter: drop-shadow(5px 5px 2px var(--darkPurple));
+    margin-top: 150px;
+    margin-left: 13px;
     cursor: pointer;
 }

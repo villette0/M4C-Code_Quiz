@@ -9,8 +9,12 @@ var multipleChoiceButton = document.querySelector(".multiple-choice-button");
 var endContainer = document.querySelector(".end-container");
 var endResult = document.querySelector(".end-result");
 var highScoresContainer = document.querySelector(".highscores-container");
+var highScoresUlList = document.querySelector(".highscores-ullist")
 var viewHighScores = document.querySelector(".view-scores-link");
 var highScoresPageRestartButton = document.querySelector(".highscores-restart-page-btn");
+var submitInitialsButton = document.querySelector(".submit-initials-button");
+var initialsInput = document.querySelector(".initials-input");
+var clearHighScoresButton = document.querySelector(".clear-highscores-btn");
 
 
 // Initially hide all the containers except start so as we rotate through showing/hiding them it's like clicking through pages
@@ -26,8 +30,6 @@ startButton.addEventListener("click", function () {
     startContainer.style.display = "none";
     startTimer(); //this function below starts the timer
 });
-
-/
 
 
 // put quiztime in global scope because we use it in multiple functions. in here, setInterval function changes time. howTimerWorks later clears the interval quiztime to zero and stops.
@@ -210,6 +212,7 @@ function restartNow() {
 }
 
 
+// added to both submit button and viewhighscores link
 viewHighScores.addEventListener("click", displayHighScores());
 function displayHighScores() {
     return function () {
@@ -220,15 +223,48 @@ function displayHighScores() {
     };
 }
 
+submitInitialsButton.addEventListener("click", appendHighScores());
 
+function appendAndDisplayHighScores(event) {
+    event.preventDefault();
+    appendHighScores();
+    // orderHighScores();
+    displayHighScores();
+}
+
+// added to submit button eventlistener
 function appendHighScores () {
-// add lis of ordered scores to ul, highest to lowest
+    // Create score item li, and add class, which will house the initials + the score
+    var initialsScoreLi = document.createElement("li");
+    initialsScoreLi.classList.add("initialsscore-li");
+    // next create p where we will write text of initial + score
+    var initialsScoreP = document.createElement("p");
+    initialsScoreP.classList.add("initialsscore-p");
+    //add text to p
+    //****Important: add ".value" to the query selector variable here to grab the text value that is taken from the input
+    initialsScoreP.innerText = initialsInput.value + score;
+    // if it does not equal nothing, append an item as we don't want empty items
+    if (initialsInput.value !== "") {
+        initialsScoreLi.appendChild(initialsScoreP); //attached p to li
+        //attach li to ul
+        highScoresUlList.appendChild(initialsScoreLi);
+    }
+    // clear initial input form value after adding to list
+    // initialsInput.value="";
 }
 
-function calculateHighScores () {
-// for loop all console.log scores and order highest to lowest
+
+function orderHighScores () {
+// for loop all scores and order highest to lowest
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+var scoreArray = [1, 30, 4, 21, 30]; //how do i get the scores from local storage
+scoreArray.sort();
 }
 
+clearHighScoresButton.addEventListener("click", clearAllHighScores);
+function clearAllHighScores() {
+    document.getElementById("highscores-ullist").innerHTML = "";
+}
 
 // Improvements to consider changing:
 //is it possible to create a percent out of the questionsList.length for the endpage function to calculate less than 50% wrong fail, greater pass?
