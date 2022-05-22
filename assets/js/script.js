@@ -1,4 +1,4 @@
-// Universal variables first
+// Global scope variables first
 var startContainer = document.querySelector(".start-container");
 var timer = document.querySelector(".timer");
 var startButton = document.querySelector(".start-btn");
@@ -13,14 +13,13 @@ var viewHighScores = document.querySelector(".view-scores-link");
 var highScoresPageRestartButton = document.querySelector(".highscores-restart-page-btn");
 
 
-// Initially hide the other two containers. aka "pseudo pages"
+// Initially hide all the containers except start so as we rotate through showing/hiding them it's like clicking through pages
 questionContainer.style.display = "none";
 endContainer.style.display = "none";
 highScoresContainer.style.display = "none";
 startContainer.style.display = "block";
 
-// Upon hitting start button, we will display the question container and hide the original start container
-// And then call the function start game
+// Hit the start button to display questions and hide start. Display the questions array and start timer counting down.
 startButton.addEventListener("click", function () {
     displayNextQuestion(questionIndex, correctVsIncorrect);
     questionContainer.style.display = "block";
@@ -28,14 +27,17 @@ startButton.addEventListener("click", function () {
     startTimer(); //this function below starts the timer
 });
 
-// We need to set this variable in the global scope, not inside the function because the value will change from nothing to the setInterval javascript function and later be used in the howTimerWorks function to be cleared when it reaches zero and not got below
-// We have to set a variable for the interval so we can clear the interval, aka stop it from running, in the below function
+/
+
+
+// put quiztime in global scope because we use it in multiple functions. in here, setInterval function changes time. howTimerWorks later clears the interval quiztime to zero and stops.
 var quiztime;
-// Start the timer in upper right corner after hitting start
+// Start the timer in upper right corner after hitting start button
 function startTimer() {
     // Every 1000 milliseconds, aka second, we are going to call the function howTimerWorks and in that function is where the time goes down. SetInterval is saying (function, how often).
     quiztime = setInterval(howTimerWorks, 1000);
 }
+//^We have to set a variable for the interval so we can clear the interval, aka stop it from running, in the below function. The computer remembers the changing values of quiztime.
 
 // How the timer functions
 var timeLeft = 35;
@@ -85,7 +87,8 @@ function displayQuestion(indexplaceholder) {
     answerUlList.innerText = "";
     // var questions comes from the universally scoped variable above which holds the array, and that is used in the .length
     for (var i = 0; i < questionsList.length; i++) {
-        // console.log(questions[i].text) shows you the text of that question for say interval 1. console.log(questions[2].text) would show me question 3's text. Just the value of text, not options etc. Or I could do console.log(questions[i].options)
+        // console.log(questions[i].text) 
+        //^shows you the text of that question. ex. console.log(questions[2].text) would show me question 3's text. Just the value of text, not options etc. Or I could do console.log(questions[i].options)
         var aSingleQuestion = questionsList[indexplaceholder].text;
         var multipleChoiceArray = questionsList[indexplaceholder].multipleChoices;
         // var from up top
@@ -111,7 +114,7 @@ function addingAnswerButtons(answerPlaceholder) {
     var answerLi = document.createElement("li");
     answerUlList.appendChild(answerLi);
     var answerButton = document.createElement("button");
-    // we place answerPlaceholder after, because currently the textContent is nothing. if we put answerPlaceholder first, it would be said to nothing.
+    // we place answerPlaceholder after, because currently the textContent is nothing. if we put answerPlaceholder first, it would be set to nothing.
     answerButton.textContent = answerPlaceholder;
     answerButton.classList.add("multiple-choice-btn");
     answerLi.appendChild(answerButton);
@@ -187,8 +190,8 @@ function gameOver() {
     endResult.textContent = "GAME OVER! You ran out of time."
 }
 
+// If we want to apply this function to multiple buttons throughout the quiz they will each need their own class and event listener. As they are in different divs and locations on the html.
 highScoresPageRestartButton.addEventListener("click", restartNow());
-
 function restartNow() {
     return function () {
         startContainer.style.display = "none";
