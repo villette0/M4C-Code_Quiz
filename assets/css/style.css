@@ -23,6 +23,7 @@ nav li {
     color: var(--pink);
     ;
     text-decoration: none;
+    cursor: pointer;
 }
 
 /* second li in the nav ul. this one is text that changes. float it right to place on opposite side */
@@ -62,6 +63,7 @@ nav li {
     display: inline-block;
     font-size: 18px;
     filter: drop-shadow(5px 5px 2px var(--darkPurple));
+    cursor: pointer;
 }
 
 
@@ -94,6 +96,7 @@ div li {
     display: inline-block;
     font-size: 18px;
     width: 300px;
+    cursor: pointer;
 }
 
 .multiple-choice-btn:focus {
@@ -121,35 +124,32 @@ div li {
     filter: drop-shadow(2px 2px 2px var(--darkPurple));
 }
 
-.restart-btn-styling {
+.enter-initials-header {
+    color: var(--darkPurple);
+    margin-top: 50px;
+    margin-bottom: 0px;
+    font-family: "calibri";
+    font-size: 20px;
+}
+
+.initials-input {
+    margin-right: 0px;
+    line-height: 150%;
+    text-align: center;
+    margin-right: -5px;
+    cursor: text;
+}
+
+.submit-initials-button {
     background-color: var(--pink);
-    border-radius: 10px;
+    border-radius: 0px;
     border-width: 0px;
     color: white;
-    padding: 13px 26px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 18px;
-    filter: drop-shadow(5px 5px 2px var(--darkPurple));
-    margin: 30px;
+    font-size: 17px;
+    padding: 4px 10px;
+    cursor: pointer;
 }
 
-
-
-.highscores-btn {
-    background-color: var(--darkPurple);
-    border-radius: 10px;
-    border-width: 0px;
-    color: white;
-    padding: 13px 26px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 18px;
-    filter: drop-shadow(5px 5px 2px #4444dd);
-    margin: 30px;
-}
 
 .highscores-container {
     text-align: center;
@@ -162,4 +162,19 @@ div li {
     text-align: center;
     text-decoration-line: underline;
     text-decoration-color: var(--pink);
+}
+
+.highscores-restart-page-btn {
+    background-color: var(--pink);
+    border-radius: 10px;
+    border-width: 0px;
+    color: white;
+    padding: 13px 26px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    filter: drop-shadow(5px 5px 2px var(--darkPurple));
+    margin-top: 150px;
+    cursor: pointer;
 }

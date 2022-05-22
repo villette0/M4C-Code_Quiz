@@ -8,8 +8,6 @@ var answerUlList = document.querySelector(".answer-ullist");
 var multipleChoiceButton = document.querySelector(".multiple-choice-button");
 var endContainer = document.querySelector(".end-container");
 var endResult = document.querySelector(".end-result");
-var endPageRestartButton = document.querySelector(".endpage-restart-btn");
-var highScoresButton = document.querySelector(".highscores-btn");
 var highScoresContainer = document.querySelector(".highscores-container");
 var viewHighScores = document.querySelector(".view-scores-link");
 var highScoresPageRestartButton = document.querySelector(".highscores-restart-page-btn");
@@ -24,7 +22,7 @@ startContainer.style.display = "block";
 // Upon hitting start button, we will display the question container and hide the original start container
 // And then call the function start game
 startButton.addEventListener("click", function () {
-    displayNextQuestion(questionIndex, displayResult);
+    displayNextQuestion(questionIndex, correctVsIncorrect);
     questionContainer.style.display = "block";
     startContainer.style.display = "none";
     startTimer(); //this function below starts the timer
@@ -99,7 +97,7 @@ function displayQuestion(indexplaceholder) {
 
 //multipleChoiceArray is the collection of multiple choice possibilities 
 var score = 0;
-var displayResult = document.querySelector(".result");
+var correctVsIncorrect = document.querySelector(".result");
 function createAnswers(multipleChoiceArray) {
     for (var i = 0; i < multipleChoiceArray.length; i++) {
         // for each item in the multiple choice array we want to apply the function addingAnswerButton
@@ -133,13 +131,13 @@ function checkAnswer(answerplaceholder) {
     // if the question's correct array answer is the same as the question selected by the used
     if (questionsList[questionIndex].correct === answerplaceholder) {
         console.log(true);
-        displayResult.textContent = "Correct! You gained 10 seconds";
+        correctVsIncorrect.textContent = "Correct! You gained 10 seconds";
         score++;
         timeLeft += 10;
     // otherwise, if they don't match
     } else {
         console.log(false);
-        displayResult.textContent = "Incorrect! You lost 10 seconds!"
+        correctVsIncorrect.textContent = "Incorrect! You lost 10 seconds!"
         timeLeft -= 10;
     }
 }
@@ -154,21 +152,21 @@ function moveToNextQuestion() {
         endPage();
     // otherwise display the next question and whether they got it correct or incorrect which displays after checkanswer
     } else {
-        displayNextQuestion(questionIndex, displayResult);
+        displayNextQuestion(questionIndex, correctVsIncorrect);
     }
 
 }
 
-function displayNextQuestion(questionplaceholder, statusplaceholder) {
+function displayNextQuestion(questionPlaceholder, changeCorrectorIncorrect) {
     // When we display the next question, make the status nothing
-    displayQuestion(questionplaceholder);
-    statusplaceholder.textContent = "";
+    displayQuestion(questionPlaceholder);
+    changeCorrectorIncorrect.textContent = "";
 }
 
 function endPage() {
     timeLeft = 0;
     questionContainer.style.display = "none";
-    displayResult.style.display = "none";
+    correctVsIncorrect.style.display = "none";
     highScoresContainer.style.display = "none";
     endContainer.style.display = "block";
 
@@ -183,13 +181,12 @@ function endPage() {
 
 function gameOver() {
     questionContainer.style.display = "none";
-    displayResult.style.display = "none";
     highScoresContainer.style.display = "none";
     endContainer.style.display = "block";
+    correctVsIncorrect.style.display = "none";
     endResult.textContent = "GAME OVER! You ran out of time."
 }
 
-endPageRestartButton.addEventListener("click", restartNow());
 highScoresPageRestartButton.addEventListener("click", restartNow());
 
 function restartNow() {
@@ -198,18 +195,18 @@ function restartNow() {
         endContainer.style.display = "none";
         highScoresContainer.style.display = "none";
         questionContainer.style.display = "block";
+        correctVsIncorrect.style.display = "block";
         // reset all our global variables
         questionIndex = 0;
         timeLeft = 35;
         score = 0;
         // display the questions and start the timer
-        displayNextQuestion(questionIndex, displayResult);
+        displayNextQuestion(questionIndex, correctVsIncorrect);
         startTimer();
     };
 }
 
 
-highScoresButton.addEventListener("click", displayHighScores());
 viewHighScores.addEventListener("click", displayHighScores());
 function displayHighScores() {
     return function () {
@@ -231,5 +228,4 @@ function calculateHighScores () {
 
 
 // Improvements to consider changing:
-//line 206. end of restart function parameters are confusing
-//is it possible to create a percent out of the questionsList.length for the enpage function to calculate less than 50% wrong fail, greater pass?
+//is it possible to create a percent out of the questionsList.length for the endpage function to calculate less than 50% wrong fail, greater pass?
