@@ -31,7 +31,6 @@ startButton.addEventListener("click", function () {
     startTimer(); //this function below starts the timer
 });
 
-
 // put quiztime in global scope because we use it in multiple functions. in here, setInterval function changes time. howTimerWorks later clears the interval quiztime to zero and stops.
 var quiztime;
 // Start the timer in upper right corner after hitting start button
@@ -120,13 +119,14 @@ function addingAnswerButtons(answerPlaceholder) {
     answerButton.textContent = answerPlaceholder;
     answerButton.classList.add("multiple-choice-btn");
     answerLi.appendChild(answerButton);
-    answerButton.addEventListener("click", function () {  
+    answerButton.addEventListener("click", function () {
         checkAnswer(answerButton.textContent);
         // wait a sec so user can see checkAnswer result
         setTimeout(function () {
-            if (timeLeft >0) {
-            moveToNextQuestion(); }
-            else {gameOver();}
+            if (timeLeft > 0) {
+                moveToNextQuestion();
+            }
+            else { gameOver(); }
         }, 1000);
     });
 };
@@ -138,7 +138,7 @@ function checkAnswer(answerplaceholder) {
         correctVsIncorrect.textContent = "Correct! You gained 10 seconds";
         score++;
         timeLeft += 10;
-    // otherwise, if they don't match
+        // otherwise, if they don't match
     } else {
         correctVsIncorrect.textContent = "Incorrect! You lost 10 seconds!"
         timeLeft -= 10;
@@ -151,7 +151,7 @@ function moveToNextQuestion() {
     // if say theres 5 questions we've reached and that matches the length of 5 then display end page which shows results
     if (questionIndex === questionsList.length) {
         endPage();
-    // otherwise display the next question and whether they got it correct or incorrect which displays after checkanswer
+        // otherwise display the next question and whether they got it correct or incorrect which displays after checkanswer
     } else {
         displayNextQuestion(questionIndex, correctVsIncorrect);
     }
@@ -171,8 +171,8 @@ function endPage() {
     highScoresContainer.style.display = "none";
     endContainer.style.display = "block";
 
-    // I should add a percent of the length here instead of 2.
-    if (score > 2) { 
+    // Could use percent instead of 2
+    if (score > 2) {
         endResult.textContent = "Your score is " + score + " correct out of " + questionsList.length + "! You passed!";
     }
     else {
@@ -191,34 +191,34 @@ function gameOver() {
 // If we want to apply this function to multiple buttons throughout the quiz they will each need their own class and event listener. As they are in different divs and locations on the html.
 highScoresPageRestartButton.addEventListener("click", restartNow);
 function restartNow() {
-        startContainer.style.display = "none";
-        endContainer.style.display = "none";
-        highScoresContainer.style.display = "none";
-        questionContainer.style.display = "block";
-        correctVsIncorrect.style.display = "block";
-        // reset all our global variables
-        questionIndex = 0;
-        timeLeft = 35;
-        score = 0;
-        initialsInput.value="";
-        // display the questions and start the timer
-        displayNextQuestion(questionIndex, correctVsIncorrect);
-        startTimer();
-    }
+    startContainer.style.display = "none";
+    endContainer.style.display = "none";
+    highScoresContainer.style.display = "none";
+    questionContainer.style.display = "block";
+    correctVsIncorrect.style.display = "block";
+    // reset all our global variables
+    questionIndex = 0;
+    timeLeft = 35;
+    score = 0;
+    initialsInput.value = "";
+    // display the questions and start the timer
+    displayNextQuestion(questionIndex, correctVsIncorrect);
+    startTimer();
+}
 
 
 // added to both submit button and viewhighscores link
 viewHighScores.addEventListener("click", displayHighScores);
 function displayHighScores() {
-        startContainer.style.display = "none";
-        endContainer.style.display = "none";
-        questionContainer.style.display = "none";
-        highScoresContainer.style.display = "block";
-    };
+    startContainer.style.display = "none";
+    endContainer.style.display = "none";
+    questionContainer.style.display = "none";
+    highScoresContainer.style.display = "block";
+};
 
 
 // added to submit button eventlistener
-function appendHighScoresToHTML (arrayInitials, arrayScore) {
+function appendHighScoresToHTML(arrayInitials, arrayScore) {
     // Create score item li, and add class, which will house the initials + the score
     var initialsScoreLi = document.createElement("li");
     initialsScoreLi.classList.add("initialsscore-li");
@@ -230,60 +230,59 @@ function appendHighScoresToHTML (arrayInitials, arrayScore) {
     initialsScoreP.innerText = arrayInitials + " " + arrayScore;
     // if it does not equal nothing, append an item as we don't want empty items
     initialsScoreLi.appendChild(initialsScoreP); //attached p to li
-        //attach li to ul
+    //attach li to ul
     highScoresUlList.appendChild(initialsScoreLi);
 }
 
 function forLoopInitialsScore() {
     for (var i = 0; i < userAndScoreArray.length; i++) {
-    var arrayInitials = userAndScoreArray[i].initials;
-    var arrayScore = userAndScoreArray[i].score;
-    appendHighScoresToHTML(arrayInitials, arrayScore);
-}
+        var arrayInitials = userAndScoreArray[i].initials;
+        var arrayScore = userAndScoreArray[i].score;
+        appendHighScoresToHTML(arrayInitials, arrayScore);
+    }
 }
 
-
+// Start with an empty array and push initials and scores data
 var userAndScoreArray = [];
-function appendHighScoresToArray () {
+function appendHighScoresToArray() {
     var myObj = {
-        "initials" : initialsInput.value,    
-        "score" : score  
-      };
+        "initials": initialsInput.value,
+        "score": score
+    };
     userAndScoreArray.push(myObj);
 
 }
 
+// order from highest to lowest
+function orderHighScores(property) {
+    //json sort by property of object
+    return function (a, b) {
+        if (a[property] < b[property])
+            return 1;
+        else if (a[property] > b[property])
+            return -1;
 
-function orderHighScores (property) {
-// for loop all scores and order highest to lowest
-//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-//json sort by property of object
-return function(a,b){  
-    if(a[property] < b[property])  
-       return 1;  
-    else if(a[property] > b[property])  
-       return -1;  
-
-    return 0;  
- }  
+        return 0;
+    }
 }
 
+// when initials are submitted, go to high scores page and add score
 submitInitialsButton.addEventListener("click", appendAndDisplay);
-
-function appendAndDisplay () {
-    if (initialsInput.value !== "") { 
-    clearAllHighScores();
-    appendHighScoresToArray();
-    userAndScoreArray.sort(orderHighScores("score")); 
-    forLoopInitialsScore();
-    displayHighScores();
+function appendAndDisplay() {
+    if (initialsInput.value !== "") {
+        clearAllHighScores();
+        appendHighScoresToArray();
+        userAndScoreArray.sort(orderHighScores("score"));
+        forLoopInitialsScore();
+        displayHighScores();
+    }
 }
-}
 
+// cler high scores button and function
 clearHighScoresButton.addEventListener("click", clearAllHighScores);
 function clearAllHighScores() {
     document.getElementById("highscores-ullist").innerHTML = "";
 }
 
-// Improvements to consider changing:
-//is it possible to create a percent out of the questionsList.length for the endpage function to calculate less than 50% wrong fail, greater pass?
+// Improvements if needed one day:
+//create a percent out of the questionsList.length for the endpage function to calculate less than 50% wrong fail, greater pass, if number length changes in the future

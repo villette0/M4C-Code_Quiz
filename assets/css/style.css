@@ -1,12 +1,11 @@
-/* Add variables for repeated color */
+/* Add universal variables for repeated color */
 :root {
     --pink: rgb(210, 118, 223);
     ;
     --darkPurple: #4444dd;
 }
 
-
-/* Moves navigation links a little down and inside so they aren't right at the edge of the page */
+/* Moves navigation links slightly down and inside so they aren't right at the edge of the page */
 nav ul {
     margin: 15px;
 }
@@ -175,7 +174,7 @@ div li {
     display: inline-block;
     font-size: 18px;
     filter: drop-shadow(5px 5px 2px var(--darkPurple));
-    margin-top: 150px;
+    margin-top: 90px;
     margin-right: 13px;
     cursor: pointer;
 }
@@ -191,7 +190,14 @@ div li {
     display: inline-block;
     font-size: 18px;
     filter: drop-shadow(5px 5px 2px var(--darkPurple));
-    margin-top: 150px;
+    margin-top: 90px;
     margin-left: 13px;
     cursor: pointer;
+}
+
+.initialsscore-p {
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--darkPurple); 
+    line-height: 130%;
 }
