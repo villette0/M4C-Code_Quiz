@@ -135,13 +135,11 @@ function addingAnswerButtons(answerPlaceholder) {
 function checkAnswer(answerplaceholder) {
     // if the question's correct array answer is the same as the question selected by the used
     if (questionsList[questionIndex].correct === answerplaceholder) {
-        console.log(true);
         correctVsIncorrect.textContent = "Correct! You gained 10 seconds";
         score++;
         timeLeft += 10;
     // otherwise, if they don't match
     } else {
-        console.log(false);
         correctVsIncorrect.textContent = "Incorrect! You lost 10 seconds!"
         timeLeft -= 10;
     }
@@ -150,8 +148,6 @@ function checkAnswer(answerplaceholder) {
 function moveToNextQuestion() {
     // move up 1 index of question
     questionIndex++;
-    console.log(questionIndex);
-    console.log(questionsList.length);
     // if say theres 5 questions we've reached and that matches the length of 5 then display end page which shows results
     if (questionIndex === questionsList.length) {
         endPage();
@@ -193,9 +189,8 @@ function gameOver() {
 }
 
 // If we want to apply this function to multiple buttons throughout the quiz they will each need their own class and event listener. As they are in different divs and locations on the html.
-highScoresPageRestartButton.addEventListener("click", restartNow());
+highScoresPageRestartButton.addEventListener("click", restartNow);
 function restartNow() {
-    return function () {
         startContainer.style.display = "none";
         endContainer.style.display = "none";
         highScoresContainer.style.display = "none";
@@ -205,35 +200,25 @@ function restartNow() {
         questionIndex = 0;
         timeLeft = 35;
         score = 0;
+        initialsInput.value="";
         // display the questions and start the timer
         displayNextQuestion(questionIndex, correctVsIncorrect);
         startTimer();
-    };
-}
+    }
 
 
 // added to both submit button and viewhighscores link
-viewHighScores.addEventListener("click", displayHighScores());
+viewHighScores.addEventListener("click", displayHighScores);
 function displayHighScores() {
-    return function () {
         startContainer.style.display = "none";
         endContainer.style.display = "none";
         questionContainer.style.display = "none";
         highScoresContainer.style.display = "block";
     };
-}
 
-submitInitialsButton.addEventListener("click", appendHighScores());
-
-function appendAndDisplayHighScores(event) {
-    event.preventDefault();
-    appendHighScores();
-    // orderHighScores();
-    displayHighScores();
-}
 
 // added to submit button eventlistener
-function appendHighScores () {
+function appendHighScoresToHTML (arrayInitials, arrayScore) {
     // Create score item li, and add class, which will house the initials + the score
     var initialsScoreLi = document.createElement("li");
     initialsScoreLi.classList.add("initialsscore-li");
@@ -242,23 +227,57 @@ function appendHighScores () {
     initialsScoreP.classList.add("initialsscore-p");
     //add text to p
     //****Important: add ".value" to the query selector variable here to grab the text value that is taken from the input
-    initialsScoreP.innerText = initialsInput.value + score;
+    initialsScoreP.innerText = arrayInitials + " " + arrayScore;
     // if it does not equal nothing, append an item as we don't want empty items
-    if (initialsInput.value !== "") {
-        initialsScoreLi.appendChild(initialsScoreP); //attached p to li
+    initialsScoreLi.appendChild(initialsScoreP); //attached p to li
         //attach li to ul
-        highScoresUlList.appendChild(initialsScoreLi);
-    }
-    // clear initial input form value after adding to list
-    // initialsInput.value="";
+    highScoresUlList.appendChild(initialsScoreLi);
+}
+
+function forLoopInitialsScore() {
+    for (var i = 0; i < userAndScoreArray.length; i++) {
+    var arrayInitials = userAndScoreArray[i].initials;
+    var arrayScore = userAndScoreArray[i].score;
+    appendHighScoresToHTML(arrayInitials, arrayScore);
+}
 }
 
 
-function orderHighScores () {
+var userAndScoreArray = [];
+function appendHighScoresToArray () {
+    var myObj = {
+        "initials" : initialsInput.value,    
+        "score" : score  
+      };
+    userAndScoreArray.push(myObj);
+
+}
+
+
+function orderHighScores (property) {
 // for loop all scores and order highest to lowest
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-var scoreArray = [1, 30, 4, 21, 30]; //how do i get the scores from local storage
-scoreArray.sort();
+//json sort by property of object
+return function(a,b){  
+    if(a[property] < b[property])  
+       return 1;  
+    else if(a[property] > b[property])  
+       return -1;  
+
+    return 0;  
+ }  
+}
+
+submitInitialsButton.addEventListener("click", appendAndDisplay);
+
+function appendAndDisplay () {
+    if (initialsInput.value !== "") { 
+    clearAllHighScores();
+    appendHighScoresToArray();
+    userAndScoreArray.sort(orderHighScores("score")); 
+    forLoopInitialsScore();
+    displayHighScores();
+}
 }
 
 clearHighScoresButton.addEventListener("click", clearAllHighScores);
