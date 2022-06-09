@@ -52,7 +52,6 @@ function howTimerWorks() {
     }
 }
 
-
 var questionsList = [
     {
         text: "What type of variable can hold more than one value?",
@@ -127,9 +126,18 @@ function addingAnswerButtons(answerPlaceholder) {
                 moveToNextQuestion();
             }
             else { gameOver(); }
-        }, 1000);
+        }
+        , 1000);
     });
 };
+
+interruptAndStopGame();
+
+function interruptAndStopGame () {
+    if (timeLeft === 0) {
+        gameOver();
+    }
+}
 
 
 function checkAnswer(answerplaceholder) {
