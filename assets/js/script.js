@@ -15,6 +15,7 @@ var highScoresPageRestartButton = document.querySelector(".highscores-restart-pa
 var submitInitialsButton = document.querySelector(".submit-initials-button");
 var initialsInput = document.querySelector(".initials-input");
 var clearHighScoresButton = document.querySelector(".clear-highscores-btn");
+var initialsAndHighScoresArray = []; //for localstorage work
 
 
 // Initially hide all the containers except start so as we rotate through showing/hiding them it's like clicking through pages
@@ -49,6 +50,7 @@ function howTimerWorks() {
         // clearInterval so it doesn't go into negatives. aka stop the interval in the function below from continuing to run after 0.
         clearInterval(quiztime);
         timer.textContent = "Timer: 0";
+        gameOver();
     }
 }
 
@@ -120,25 +122,9 @@ function addingAnswerButtons(answerPlaceholder) {
     answerLi.appendChild(answerButton);
     answerButton.addEventListener("click", function () {
         checkAnswer(answerButton.textContent);
-        // wait a sec so user can see checkAnswer result
-        setTimeout(function () {
-            if (timeLeft > 0) {
-                moveToNextQuestion();
-            }
-            else { gameOver(); }
-        }
-        , 1000);
+        moveToNextQuestion();
     });
 };
-
-interruptAndStopGame();
-
-function interruptAndStopGame () {
-    if (timeLeft === 0) {
-        gameOver();
-    }
-}
-
 
 function checkAnswer(answerplaceholder) {
     // if the question's correct array answer is the same as the question selected by the used
@@ -236,6 +222,7 @@ function appendHighScoresToHTML(arrayInitials, arrayScore) {
     //add text to p
     //****Important: add ".value" to the query selector variable here to grab the text value that is taken from the input
     initialsScoreP.innerText = arrayInitials + " " + arrayScore;
+
     // if it does not equal nothing, append an item as we don't want empty items
     initialsScoreLi.appendChild(initialsScoreP); //attached p to li
     //attach li to ul
@@ -258,7 +245,6 @@ function appendHighScoresToArray() {
         "score": score
     };
     userAndScoreArray.push(myObj);
-
 }
 
 // order from highest to lowest
@@ -283,14 +269,47 @@ function appendAndDisplay() {
         userAndScoreArray.sort(orderHighScores("score"));
         forLoopInitialsScore();
         displayHighScores();
+        setLocalStorage(initialsInput.value, score);
+        getLocalStorageAndDisplay(initialsAndHighScoresArray);
+        getData();
     }
 }
 
-// cler high scores button and function
+// clear high scores button and function
 clearHighScoresButton.addEventListener("click", clearAllHighScores);
 function clearAllHighScores() {
     document.getElementById("highscores-ullist").innerHTML = "";
 }
 
+function setLocalStorage(initial, highscore) {
+    var combinedUserInfo = {
+        initial,
+        highscore
+    }
+
+    initialsAndHighScoresArray.push(combinedUserInfo);
+    localStorage.setItem('initialsAndHighScores', JSON.stringify(initialsAndHighScoresArray));
+}
+
+function getLocalStorageAndDisplay(array) {
+    for (var i = 0; i < array.length; i++) {
+        var userInitial = array[i].initial;
+        var userHighscore = array[i].highscore;
+
+        // Display
+        appendHighScoresToHTML(userInitial, userHighscore);
+    }
+}
+
+function getData () {
+    var localStorageArray = JSON.parse(localStorage.getItem('initialsAndHighScores'));
+    if (localStorageArray != null) {
+        initialsAndHighScoresArray = localStorageArray;
+    }
+}
+
+
+
 // Improvements if needed one day:
 //create a percent out of the questionsList.length for the endpage function to calculate less than 50% wrong fail, greater pass, if number length changes in the future
+
