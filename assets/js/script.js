@@ -159,7 +159,8 @@ function displayNextQuestion(questionPlaceholder, changeCorrectorIncorrect) {
 }
 
 function endPage() {
-    timeLeft = 0;
+    clearInterval(quiztime);
+    timer.textContent = "Timer: 0";
     questionContainer.style.display = "none";
     correctVsIncorrect.style.display = "none";
     highScoresContainer.style.display = "none";
@@ -212,7 +213,7 @@ function displayHighScores() {
 
 
 // added to submit button eventlistener
-function appendHighScoresToHTML(arrayInitials, arrayScore) {
+function appendHighScoresToHTML(arrayInitials, arrayScore, rankNumber) {
     // Create score item li, and add class, which will house the initials + the score
     var initialsScoreLi = document.createElement("li");
     initialsScoreLi.classList.add("initialsscore-li");
@@ -221,7 +222,7 @@ function appendHighScoresToHTML(arrayInitials, arrayScore) {
     initialsScoreP.classList.add("initialsscore-p");
     //add text to p
     //****Important: add ".value" to the query selector variable here to grab the text value that is taken from the input
-    initialsScoreP.innerText = arrayInitials + " " + arrayScore;
+    initialsScoreP.innerText = rankNumber + ". " + arrayInitials + " " + arrayScore;
 
     // if it does not equal nothing, append an item as we don't want empty items
     initialsScoreLi.appendChild(initialsScoreP); //attached p to li
@@ -233,7 +234,8 @@ function forLoopInitialsScore() {
     for (var i = 0; i < userAndScoreArray.length; i++) {
         var arrayInitials = userAndScoreArray[i].initials;
         var arrayScore = userAndScoreArray[i].score;
-        appendHighScoresToHTML(arrayInitials, arrayScore);
+        var rank = i+1; //starting at 1 instead of 0
+        appendHighScoresToHTML(arrayInitials, arrayScore, rank);
     }
 }
 
@@ -245,6 +247,10 @@ function appendHighScoresToArray() {
         "score": score
     };
     userAndScoreArray.push(myObj);
+
+    for (var i = 0; i < userAndScoreArray.length; i++) {
+        localStorage.setItem(i,JSON.stringify(userAndScoreArray[i]));
+    }
 }
 
 // order from highest to lowest
@@ -269,9 +275,6 @@ function appendAndDisplay() {
         userAndScoreArray.sort(orderHighScores("score"));
         forLoopInitialsScore();
         displayHighScores();
-        setLocalStorage(initialsInput.value, score);
-        getLocalStorageAndDisplay(initialsAndHighScoresArray);
-        getData();
     }
 }
 
@@ -281,33 +284,15 @@ function clearAllHighScores() {
     document.getElementById("highscores-ullist").innerHTML = "";
 }
 
-function setLocalStorage(initial, highscore) {
-    var combinedUserInfo = {
-        initial,
-        highscore
-    }
-
-    initialsAndHighScoresArray.push(combinedUserInfo);
-    localStorage.setItem('initialsAndHighScores', JSON.stringify(initialsAndHighScoresArray));
+function getItemsFromLocalStorage () {
+for (var i = 0; i < localStorage.length; i++) {
+    var value = JSON.parse(localStorage.getItem(i));
+    console.log(i, value);
+    userAndScoreArray.push(value);
+}
 }
 
-function getLocalStorageAndDisplay(array) {
-    for (var i = 0; i < array.length; i++) {
-        var userInitial = array[i].initial;
-        var userHighscore = array[i].highscore;
-
-        // Display
-        appendHighScoresToHTML(userInitial, userHighscore);
-    }
-}
-
-function getData () {
-    var localStorageArray = JSON.parse(localStorage.getItem('initialsAndHighScores'));
-    if (localStorageArray != null) {
-        initialsAndHighScoresArray = localStorageArray;
-    }
-}
-
+getItemsFromLocalStorage();
 
 
 // Improvements if needed one day:
