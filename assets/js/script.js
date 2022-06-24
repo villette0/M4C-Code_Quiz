@@ -9,14 +9,15 @@ var multipleChoiceButton = document.querySelector(".multiple-choice-button");
 var endContainer = document.querySelector(".end-container");
 var endResult = document.querySelector(".end-result");
 var highScoresContainer = document.querySelector(".highscores-container");
-var highScoresUlList = document.querySelector(".highscores-ullist")
+var highScoresUlList = document.querySelector(".highscores-ullist");
 var viewHighScores = document.querySelector(".view-scores-link");
-var highScoresPageRestartButton = document.querySelector(".highscores-restart-page-btn");
+var highScoresPageRestartButton = document.querySelector(
+    ".highscores-restart-page-btn"
+);
 var submitInitialsButton = document.querySelector(".submit-initials-button");
 var initialsInput = document.querySelector(".initials-input");
 var clearHighScoresButton = document.querySelector(".clear-highscores-btn");
 var initialsAndHighScoresArray = []; //for localstorage work
-
 
 // Initially hide all the containers except start so as we rotate through showing/hiding them it's like clicking through pages
 questionContainer.style.display = "none";
@@ -45,7 +46,7 @@ function startTimer() {
 var timeLeft = 35;
 function howTimerWorks() {
     timeLeft--; //subtracts time
-    timer.textContent = ("Timer: " + timeLeft); // the text of the timer class will change to also counting down
+    timer.textContent = "Timer: " + timeLeft; // the text of the timer class will change to also counting down
     if (timeLeft <= 0) {
         // clearInterval so it doesn't go into negatives. aka stop the interval in the function below from continuing to run after 0.
         clearInterval(quiztime);
@@ -57,7 +58,12 @@ function howTimerWorks() {
 var questionsList = [
     {
         text: "What type of variable can hold more than one value?",
-        multipleChoices: ["array", "JavaScript", "event bubbling", "query selector"],
+        multipleChoices: [
+            "array",
+            "JavaScript",
+            "event bubbling",
+            "query selector",
+        ],
         correct: "array",
     },
     {
@@ -77,19 +83,24 @@ var questionsList = [
     },
     {
         text: "Where does one place the link to the JavaScript's script.js file in the HTML document?",
-        multipleChoices: ["outside the <html>", "in the <DOCTYPE>", "at the top <head>", "at the bottom of <body>"],
+        multipleChoices: [
+            "outside the <html>",
+            "in the <DOCTYPE>",
+            "at the top <head>",
+            "at the bottom of <body>",
+        ],
         correct: "at the bottom of <body>",
     },
-]
+];
 
-// for loop to create and cycle through questions and answers 
+// for loop to create and cycle through questions and answers
 var questionIndex = 0;
 function displayQuestion(indexplaceholder) {
     // var answerList is the ul class of the multiple choice buttons. set initially to nothing. we will fill this text with the array information
     answerUlList.innerText = "";
     // var questions comes from the universally scoped variable above which holds the array, and that is used in the .length
     for (var i = 0; i < questionsList.length; i++) {
-        // console.log(questions[i].text) 
+        // console.log(questions[i].text)
         //^shows you the text of that question. ex. console.log(questions[2].text) would show me question 3's text. Just the value of text, not options etc. Or I could do console.log(questions[i].options)
         var aSingleQuestion = questionsList[indexplaceholder].text;
         var multipleChoiceArray = questionsList[indexplaceholder].multipleChoices;
@@ -99,8 +110,7 @@ function displayQuestion(indexplaceholder) {
     createAnswers(multipleChoiceArray);
 }
 
-
-//multipleChoiceArray is the collection of multiple choice possibilities 
+//multipleChoiceArray is the collection of multiple choice possibilities
 var score = 0;
 var correctVsIncorrect = document.querySelector(".result");
 function createAnswers(multipleChoiceArray) {
@@ -110,7 +120,7 @@ function createAnswers(multipleChoiceArray) {
     }
 }
 
-// we made up the word answerPlaceholder to use 
+// we made up the word answerPlaceholder to use
 function addingAnswerButtons(answerPlaceholder) {
     // console.log(answerPlaceholder)
     var answerLi = document.createElement("li");
@@ -124,7 +134,7 @@ function addingAnswerButtons(answerPlaceholder) {
         checkAnswer(answerButton.textContent);
         moveToNextQuestion();
     });
-};
+}
 
 function checkAnswer(answerplaceholder) {
     // if the question's correct array answer is the same as the question selected by the used
@@ -134,7 +144,7 @@ function checkAnswer(answerplaceholder) {
         timeLeft += 10;
         // otherwise, if they don't match
     } else {
-        correctVsIncorrect.textContent = "Incorrect! You lost 10 seconds!"
+        correctVsIncorrect.textContent = "Incorrect! You lost 10 seconds!";
         timeLeft -= 10;
     }
 }
@@ -149,7 +159,6 @@ function moveToNextQuestion() {
     } else {
         displayNextQuestion(questionIndex, correctVsIncorrect);
     }
-
 }
 
 function displayNextQuestion(questionPlaceholder, changeCorrectorIncorrect) {
@@ -168,10 +177,19 @@ function endPage() {
 
     // Could use percent instead of 2
     if (score > 2) {
-        endResult.textContent = "Your score is " + score + " correct out of " + questionsList.length + "! You passed!";
-    }
-    else {
-        endResult.textContent = "Your score is only " + score + " correct out of " + questionsList.length + "! You failed.";
+        endResult.textContent =
+            "Your score is " +
+            score +
+            " correct out of " +
+            questionsList.length +
+            "! You passed!";
+    } else {
+        endResult.textContent =
+            "Your score is only " +
+            score +
+            " correct out of " +
+            questionsList.length +
+            "! You failed.";
     }
 }
 
@@ -180,7 +198,7 @@ function gameOver() {
     highScoresContainer.style.display = "none";
     endContainer.style.display = "block";
     correctVsIncorrect.style.display = "none";
-    endResult.textContent = "GAME OVER! You ran out of time."
+    endResult.textContent = "GAME OVER! You ran out of time.";
 }
 
 // If we want to apply this function to multiple buttons throughout the quiz they will each need their own class and event listener. As they are in different divs and locations on the html.
@@ -201,16 +219,22 @@ function restartNow() {
     startTimer();
 }
 
-
 // added to both submit button and viewhighscores link
-viewHighScores.addEventListener("click", displayHighScores);
-function displayHighScores() {
+viewHighScores.addEventListener("click", listOldHighScores);
+
+function listOldHighScores() {
+    clearAllHighScores();
+    userAndScoreArray.sort(orderHighScores("score"));
+    forLoopInitialsScore();
+    displayHighScoresContainer();
+}
+
+function displayHighScoresContainer() {
     startContainer.style.display = "none";
     endContainer.style.display = "none";
     questionContainer.style.display = "none";
     highScoresContainer.style.display = "block";
-};
-
+}
 
 // added to submit button eventlistener
 function appendHighScoresToHTML(arrayInitials, arrayScore, rankNumber) {
@@ -222,7 +246,8 @@ function appendHighScoresToHTML(arrayInitials, arrayScore, rankNumber) {
     initialsScoreP.classList.add("initialsscore-p");
     //add text to p
     //****Important: add ".value" to the query selector variable here to grab the text value that is taken from the input
-    initialsScoreP.innerText = rankNumber + ". " + arrayInitials + " " + arrayScore;
+    initialsScoreP.innerText =
+        rankNumber + ". " + arrayInitials + " " + arrayScore;
 
     // if it does not equal nothing, append an item as we don't want empty items
     initialsScoreLi.appendChild(initialsScoreP); //attached p to li
@@ -234,7 +259,7 @@ function forLoopInitialsScore() {
     for (var i = 0; i < userAndScoreArray.length; i++) {
         var arrayInitials = userAndScoreArray[i].initials;
         var arrayScore = userAndScoreArray[i].score;
-        var rank = i+1; //starting at 1 instead of 0
+        var rank = i + 1; //starting at 1 instead of 0
         appendHighScoresToHTML(arrayInitials, arrayScore, rank);
     }
 }
@@ -243,13 +268,13 @@ function forLoopInitialsScore() {
 var userAndScoreArray = [];
 function appendHighScoresToArray() {
     var myObj = {
-        "initials": initialsInput.value,
-        "score": score
+        initials: initialsInput.value,
+        score: score,
     };
     userAndScoreArray.push(myObj);
 
     for (var i = 0; i < userAndScoreArray.length; i++) {
-        localStorage.setItem(i,JSON.stringify(userAndScoreArray[i]));
+        localStorage.setItem(i, JSON.stringify(userAndScoreArray[i]));
     }
 }
 
@@ -257,13 +282,14 @@ function appendHighScoresToArray() {
 function orderHighScores(property) {
     //json sort by property of object
     return function (a, b) {
-        if (a[property] < b[property])
+        if (a[property] < b[property]) {
             return 1;
-        else if (a[property] > b[property])
+        } else if (a[property] > b[property]) {
             return -1;
-
-        return 0;
-    }
+        } else {
+            return 0;
+        }
+    };
 }
 
 // when initials are submitted, go to high scores page and add score
@@ -274,7 +300,7 @@ function appendAndDisplay() {
         appendHighScoresToArray();
         userAndScoreArray.sort(orderHighScores("score"));
         forLoopInitialsScore();
-        displayHighScores();
+        displayHighScoresContainer();
     }
 }
 
@@ -282,19 +308,18 @@ function appendAndDisplay() {
 clearHighScoresButton.addEventListener("click", clearAllHighScores);
 function clearAllHighScores() {
     document.getElementById("highscores-ullist").innerHTML = "";
+    localStorage.clear();
 }
 
-function getItemsFromLocalStorage () {
-for (var i = 0; i < localStorage.length; i++) {
-    var value = JSON.parse(localStorage.getItem(i));
-    console.log(i, value);
-    userAndScoreArray.push(value);
-}
+function getItemsFromLocalStorage() {
+    for (var i = 0; i < localStorage.length; i++) {
+        var value = JSON.parse(localStorage.getItem(i));
+        console.log(i, value);
+        userAndScoreArray.push(value);
+    }
 }
 
 getItemsFromLocalStorage();
 
-
 // Improvements if needed one day:
 //create a percent out of the questionsList.length for the endpage function to calculate less than 50% wrong fail, greater pass, if number length changes in the future
-
