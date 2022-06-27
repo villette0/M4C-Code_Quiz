@@ -227,6 +227,7 @@ function listOldHighScores() {
     userAndScoreArray.sort(orderHighScores("score"));
     forLoopInitialsScore();
     displayHighScoresContainer();
+    highScoresPageRestartButton.addEventListener("click", restartNow);
 }
 
 function displayHighScoresContainer() {
@@ -304,11 +305,23 @@ function appendAndDisplay() {
     }
 }
 
+function removeChilds(parent) {
+    while (parent.lastChild) {
+        parent.removeChild(parent.lastChild);
+        userAndScoreArray=[];
+    }
+}
+
 // clear high scores button and function
-clearHighScoresButton.addEventListener("click", clearAllHighScores);
-function clearAllHighScores() {
-    document.getElementById("highscores-ullist").innerHTML = "";
+clearHighScoresButton.addEventListener("click", eraseAllHighScores);
+
+function eraseAllHighScores () {
     localStorage.clear();
+    removeChilds(highScoresUlList);
+}
+
+function clearAllHighScores() {
+    highScoresUlList.innerHTML = "";
 }
 
 function getItemsFromLocalStorage() {
