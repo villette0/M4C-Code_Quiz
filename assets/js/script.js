@@ -33,14 +33,19 @@ startButton.addEventListener("click", function () {
     startTimer(); //this function below starts the timer
 });
 
-// put quiztime in global scope because we use it in multiple functions. in here, setInterval function changes time. howTimerWorks later clears the interval quiztime to zero and stops.
-var quiztime;
+// put quizTime in global scope because we use it in multiple functions. in here, setInterval function changes time. howTimerWorks later clears the interval quizTime to zero and stops.
+var quizTime;
 // Start the timer in upper right corner after hitting start button
 function startTimer() {
     // Every 1000 milliseconds, aka second, we are going to call the function howTimerWorks and in that function is where the time goes down. SetInterval is saying (function, how often).
-    quiztime = setInterval(howTimerWorks, 1000);
+    quizTime = setInterval(howTimerWorks, 1000);
 }
-//^We have to set a variable for the interval so we can clear the interval, aka stop it from running, in the below function. The computer remembers the changing values of quiztime.
+
+function stopTimer() {
+    clearInterval(quizTime);
+}
+  
+//^We have to set a variable for the interval so we can clear the interval, aka stop it from running, in the below function. The computer remembers the changing values of quizTime.
 
 // How the timer functions
 var timeLeft = 35;
@@ -49,7 +54,7 @@ function howTimerWorks() {
     timer.textContent = "Timer: " + timeLeft; // the text of the timer class will change to also counting down
     if (timeLeft <= 0) {
         // clearInterval so it doesn't go into negatives. aka stop the interval in the function below from continuing to run after 0.
-        clearInterval(quiztime);
+        clearInterval(quizTime);
         timer.textContent = "Timer: 0";
         gameOver();
     }
@@ -168,7 +173,7 @@ function displayNextQuestion(questionPlaceholder, changeCorrectorIncorrect) {
 }
 
 function endPage() {
-    clearInterval(quiztime);
+    clearInterval(quizTime);
     timer.textContent = "Timer: 0";
     questionContainer.style.display = "none";
     correctVsIncorrect.style.display = "none";
@@ -227,7 +232,7 @@ function listOldHighScores() {
     userAndScoreArray.sort(orderHighScores("score"));
     forLoopInitialsScore();
     displayHighScoresContainer();
-    highScoresPageRestartButton.addEventListener("click", restartNow);
+    stopTimer();
 }
 
 function displayHighScoresContainer() {
@@ -299,29 +304,19 @@ function appendAndDisplay() {
     if (initialsInput.value !== "") {
         clearAllHighScores();
         appendHighScoresToArray();
-        userAndScoreArray.sort(orderHighScores("score"));
+        if (userAndScoreArray.length > 1) {
+            userAndScoreArray.sort(orderHighScores("score"));
+        }
         forLoopInitialsScore();
         displayHighScoresContainer();
     }
 }
 
-function removeChilds(parent) {
-    while (parent.lastChild) {
-        parent.removeChild(parent.lastChild);
-        userAndScoreArray=[];
-    }
-}
-
 // clear high scores button and function
-clearHighScoresButton.addEventListener("click", eraseAllHighScores);
-
-function eraseAllHighScores () {
-    localStorage.clear();
-    removeChilds(highScoresUlList);
-}
-
+clearHighScoresButton.addEventListener("click", clearAllHighScores);
 function clearAllHighScores() {
-    highScoresUlList.innerHTML = "";
+    document.getElementById("highscores-ullist").innerHTML = "";
+    localStorage.clear();
 }
 
 function getItemsFromLocalStorage() {
