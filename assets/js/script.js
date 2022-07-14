@@ -229,7 +229,9 @@ viewHighScores.addEventListener("click", listOldHighScores);
 
 function listOldHighScores() {
     clearAllHighScores();
-    userAndScoreArray.sort(orderHighScores("score"));
+    if (userAndScoreArray.length > 1) {
+        userAndScoreArray.sort(orderHighScores("score"));
+    }
     forLoopInitialsScore();
     displayHighScoresContainer();
     stopTimer();
