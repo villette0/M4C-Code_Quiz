@@ -6,11 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Code Quiz</title>
-
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
-  <!-- Link to reset first so computer reads that first, then style css -->
+  <!-- Link to reset, then link to custom style sheet -->
   <link rel="stylesheet" href="./assets/css/reset.css" />
   <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
@@ -19,34 +17,31 @@
   <nav>
     <ul>
       <li><a class="view-scores-link">View High Scores</a></li>
-          <!-- timer -->
       <li class="timer">Timer: 0</li>
     </ul>
   </nav>
 
-  <!-- Start container. Default will be shown, will hide on start button click to show question container -->
   <div class="start-container">
     <h1 class="start-header">Coding Quiz Challenge</h1>
-    <p class="start-paragraph">Try to answer the following code-related questions within the time limit. Keep in mind that
+    <p class="start-paragraph">Try to answer the following code-related questions within the time limit. Keep in mind
+      that
       incorrect answers will penalize your score and your time by ten seconds!</p>
     <button class="start-btn">Start Quiz</button>
   </div>
 
-  <!--Question container. Default will be hidden. Then will show after start button click.-->
   <div class="question-container">
-    <!-- questions that will change -->
     <h1 class="question-text"></h1>
     <ul class="answer-ullist">
-    <!-- li's will populate here via JavaScript appending with an array -->
+      <!-- li answers will populate via JS array-->
     </ul>
   </div>
 
-  <!-- If correct or incorrect will show below answer selection -->
+  <!-- Displays 'correct' or 'incorrect'-->
   <div>
-    <h2 class = "result"></h2>
+    <h2 class="result"></h2>
   </div>
 
-  <!-- End of quiz page, changes from game over if run out of time, or results -->
+  <!-- End of quiz page. Game Over if run out of time or Results -->
   <div class="end-container">
     <h2 class="end-result"></h2>
     <h3 class="enter-initials-header"> Enter your initials: </h3>
@@ -56,17 +51,16 @@
     </div>
   </div>
 
-<!-- if highscores is clicked in button or navigation link this will display and hide the other divs -->
-<div class="highscores-container">
-  <h1 class="highscores-header">High Scores</h1>
-  <ul class="highscores-ullist" id="highscores-ullist">
-  <!-- li's will populate here via JavaScript appending with an array -->
-  </ul>
-  <button class="highscores-restart-page-btn">Restart Quiz</button>
-  <button class="clear-highscores-btn">Clear Highscores</button>
-</div>
+  <!-- Displayed via View Highscores or after submit initials-->
+  <div class="highscores-container">
+    <h1 class="highscores-header">High Scores</h1>
+    <ul class="highscores-ullist" id="highscores-ullist">
+      <!-- li initials & scores will populate via JS array -->
+    </ul>
+    <button class="highscores-restart-page-btn">Restart Quiz</button>
+    <button class="clear-highscores-btn">Clear Highscores</button>
+  </div>
 
-  <!-- link to JavaScript needs to go at bottom of body -->
   <script src="./assets/js/script.js"></script>
 </body>
 
