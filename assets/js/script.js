@@ -228,7 +228,7 @@ function restartNow() {
 viewHighScores.addEventListener("click", listOldHighScores);
 
 function listOldHighScores() {
-    clearAllHighScores();
+    document.getElementById("highscores-ullist").innerHTML = "";
     if (userAndScoreArray.length > 1) {
         userAndScoreArray.sort(orderHighScores("score"));
     }
@@ -304,7 +304,7 @@ function orderHighScores(property) {
 submitInitialsButton.addEventListener("click", appendAndDisplay);
 function appendAndDisplay() {
     if (initialsInput.value !== "") {
-        clearAllHighScores();
+        document.getElementById("highscores-ullist").innerHTML = "";
         appendHighScoresToArray();
         if (userAndScoreArray.length > 1) {
             userAndScoreArray.sort(orderHighScores("score"));
@@ -319,6 +319,7 @@ clearHighScoresButton.addEventListener("click", clearAllHighScores);
 function clearAllHighScores() {
     document.getElementById("highscores-ullist").innerHTML = "";
     localStorage.clear();
+    userAndScoreArray = [];
 }
 
 function getItemsFromLocalStorage() {
