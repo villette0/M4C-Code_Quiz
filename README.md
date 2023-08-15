@@ -58,14 +58,10 @@ The JavaScript document includes:
 - JavaScript
 
 ## Links
-* [Deployed webpage](https://villettec.github.io/M4C-Code_Quiz/)
+* [Deployed webpage](https://villette0.github.io/M4C-Code_Quiz/)
 
-* [Repository](https://github.com/villettec/M4C-Code_Quiz)
+* [Repository](https://github.com/villette0/M4C-Code_Quiz)
 
 ## Screenshot
 ![image](./assets/images/readme-screenshot.png)
 
-## Credit
-Villette Comfort
-
-villette@live.com
